@@ -23,6 +23,7 @@ defmodule Issues.MixProject do
     [
       {:httpoison, "~>1.0.0"},
       {:poison, "~>3.1"},
+      {:scribe, "~>0.10"},
     ]
   end
 end
