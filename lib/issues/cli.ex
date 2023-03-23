@@ -32,10 +32,12 @@ defmodule Issues.CLI do
     """
   end
 
-  def process({user, project, _count}) do
+  def process({user, project, count}) do
     Issues.GithubIssues.fetch(user, project)
     |> decode_response()
     |> sort_issues()
+    |> last(count)
+    |> Scribe.print(data: ["number", "created_at", "title"])
   end
 
   def decode_response({:ok, body}), do: body
@@ -49,5 +51,11 @@ defmodule Issues.CLI do
     Enum.sort(
       fn (i, j) -> i["created_at"] >= j["created_at"] end
     )
+  end
+
+  def last(list, count) do
+    list
+    |> Enum.take(count)
+    |> Enum.reverse
   end
 end
