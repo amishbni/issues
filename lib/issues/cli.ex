@@ -2,7 +2,7 @@ defmodule Issues.CLI do
 
   @default_count 10
 
-  def run(argv) do
+  def main(argv) do
     argv
     |> parse_args
     |> process
