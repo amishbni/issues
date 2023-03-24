@@ -33,7 +33,7 @@ defmodule Issues.CLI do
   end
 
   def process({user, project, count}) do
-    Issues.GithubIssues.fetch(user, project)
+    Issues.GithubIssues.fetch(user, project, count)
     |> decode_response()
     |> sort_issues()
     |> last(count)
