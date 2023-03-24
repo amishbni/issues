@@ -13,17 +13,13 @@ defmodule Issues.GithubIssues do
     |> handle_response
   end
 
-  def issues_url(user, project, count) when count < 100 do
-    "#{@github_url}/repos/#{user}/#{project}/issues?per_page=#{count}"
-  end
-
-  def issues_url(user, project, _count) do
-    "#{@github_url}/repos/#{user}/#{project}/issues?per_page=100"
+  def issues_url(user, project, count) do
+    per_page = if count < 100, do: count, else: 100
+    "#{@github_url}/repos/#{user}/#{project}/issues?per_page=#{per_page}"
   end
 
   def handle_response({_, %{status_code: status_code, body: body}}) do
     Logger.info("Got response. status code: #{status_code}")
-
 
     parsed = body |> Poison.Parser.parse!()
     Logger.debug(fn -> inspect(parsed) end)
