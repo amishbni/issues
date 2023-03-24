@@ -29,6 +29,18 @@ defmodule Issues.CLI do
   def process(:help) do
     IO.puts """
     usage: issues <user> <project> [ count | #{@default_count} ]
+
+    examples:
+
+    List 5 newest issues:
+    λ issues elixir-lang elixir 5
+
+    List 10 oldest issues:
+    λ issues python cpython -10
+
+    The default count of issues is 10, so these commands are identical:
+    λ issues phoenixframework phoenix
+    λ issues phoenixframework phoenix 10
     """
   end
 
