@@ -15,10 +15,12 @@ defmodule Issues.GithubIssues do
 
   def issues_url(user, project, count) do
     per_page = if count < 100, do: count, else: 100
+    direction = if count > 0, do: "desc", else: "asc"
 
     "#{@github_api_url}/repos/#{user}/#{project}/issues"
     |> URI.new!()
     |> URI.append_query(URI.encode_query(per_page: per_page))
+    |> URI.append_query(URI.encode_query(direction: direction))
     |> URI.to_string()
   end
 
